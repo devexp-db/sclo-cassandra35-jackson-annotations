@@ -1,16 +1,15 @@
 Name:          jackson-annotations
-Version:       2.2.2
-Release:       5%{?dist}
+Version:       2.4.1
+Release:       1%{?dist}
 Summary:       Core annotations for Jackson data processor 
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonHome
 Source0:       https://github.com/FasterXML/jackson-annotations/archive/%{name}-%{version}.tar.gz
-# jackson-annotations package don't include the license file
-# https://github.com/FasterXML/jackson-annotations/issues/14
-Source1:       http://www.apache.org/licenses/LICENSE-2.0.txt
-
-BuildRequires: mvn(com.fasterxml:oss-parent) >= 10
-BuildRequires: java-devel
+%if %{?fedora} > 20
+BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
+%else
+BuildRequires: mvn(com.fasterxml.jackson:jackson-parent)
+%endif
 
 BuildRequires: maven-local
 BuildRequires: maven-enforcer-plugin
@@ -36,8 +35,8 @@ This package contains javadoc for %{name}.
 %prep
 %setup -q -n %{name}-%{name}-%{version}
 
-cp -p %{SOURCE1} .
-sed -i 's/\r//' LICENSE-2.0.txt
+cp -p src/main/resources/META-INF/LICENSE .
+sed -i 's/\r//' LICENSE
 
 %build
 
@@ -48,12 +47,15 @@ sed -i 's/\r//' LICENSE-2.0.txt
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE-2.0.txt README.md release-notes/*
+%doc LICENSE README.md release-notes/*
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENSE-2.0.txt
+%doc LICENSE
 
 %changelog
+* Wed Jul 02 2014 gil cattaneo <puntogil@libero.it> 2.4.1-1
+- update to 2.4.1
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
