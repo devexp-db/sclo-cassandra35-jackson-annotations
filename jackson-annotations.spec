@@ -1,5 +1,5 @@
 Name:          jackson-annotations
-Version:       2.4.2
+Version:       2.5.0
 Release:       1%{?dist}
 Summary:       Core annotations for Jackson data processor 
 License:       ASL 2.0
@@ -38,21 +38,26 @@ This package contains javadoc for %{name}.
 cp -p src/main/resources/META-INF/LICENSE .
 sed -i 's/\r//' LICENSE
 
+%mvn_file : %{name}
+
 %build
 
-%mvn_file : %{name}
 %mvn_build
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE README.md release-notes/*
+%doc README.md release-notes/*
+%license LICENSE
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENSE
+%license LICENSE
 
 %changelog
+* Sat Jan 31 2015 gil cattaneo <puntogil@libero.it> 2.5.0-1
+- update to 2.5.0
+
 * Sat Sep 20 2014 gil cattaneo <puntogil@libero.it> 2.4.2-1
 - update to 2.4.2
 
