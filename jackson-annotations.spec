@@ -1,5 +1,5 @@
 Name:          jackson-annotations
-Version:       2.6.2
+Version:       2.6.3
 Release:       1%{?dist}
 Summary:       Core annotations for Jackson data processor 
 License:       ASL 2.0
@@ -48,6 +48,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Sun Oct 25 2015 gil cattaneo <puntogil@libero.it> 2.6.3-1
+- update to 2.6.3
+
 * Mon Sep 28 2015 gil cattaneo <puntogil@libero.it> 2.6.2-1
 - update to 2.6.2
 
