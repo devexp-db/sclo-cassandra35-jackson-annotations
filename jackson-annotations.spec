@@ -1,6 +1,6 @@
 Name:          jackson-annotations
-Version:       2.6.3
-Release:       2%{?dist}
+Version:       2.6.6
+Release:       1%{?dist}
 Summary:       Core annotations for Jackson data processor 
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonHome
@@ -48,6 +48,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Thu May 26 2016 gil cattaneo <puntogil@libero.it> 2.6.6-1
+- update to 2.6.6
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
