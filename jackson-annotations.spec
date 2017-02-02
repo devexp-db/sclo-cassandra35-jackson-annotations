@@ -1,6 +1,6 @@
 Name:          jackson-annotations
 Version:       2.7.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Core annotations for Jackson data processor 
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonHome
@@ -9,8 +9,6 @@ Source0:       https://github.com/FasterXML/jackson-annotations/archive/%{name}-
 BuildRequires: maven-local
 BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
 BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
@@ -48,6 +46,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Thu Feb 02 2017 Michael Simacek <msimacek@redhat.com> - 2.7.6-2
+- Remove site-plugin and enforcer-plugin BR
+
 * Mon Aug 22 2016 gil cattaneo <puntogil@libero.it> 2.7.6-1
 - update to 2.7.6
 
