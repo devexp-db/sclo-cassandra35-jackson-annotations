@@ -1,42 +1,50 @@
-Name:          jackson-annotations
-Version:       2.7.6
-Release:       3%{?dist}
-Summary:       Core annotations for Jackson data processor 
-License:       ASL 2.0
-URL:           http://wiki.fasterxml.com/JacksonHome
-Source0:       https://github.com/FasterXML/jackson-annotations/archive/%{name}-%{version}.tar.gz
+%{?scl:%scl_package jackson-annotations}
+%{!?scl:%global pkg_name %{name}}
 
-BuildRequires: maven-local
-BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
-BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
+Name:		%{?scl_prefix}jackson-annotations
+Version:	2.7.6
+Release:	4%{?dist}
+Summary:	Core annotations for Jackson data processor
+License:	ASL 2.0
+URL:		http://wiki.fasterxml.com/JacksonHome
+Source0:	https://github.com/FasterXML/%{pkg_name}/archive/%{pkg_name}-%{version}.tar.gz
 
-BuildArch:     noarch
+BuildRequires:	%{?scl_prefix_maven}maven-local
+BuildRequires:	%{?scl_prefix}jackson-parent
+BuildRequires:	%{?scl_prefix}fasterxml-oss-parent
+BuildRequires:	%{?scl_prefix_maven}maven-plugin-bundle
+BuildRequires:	%{?scl_prefix_maven}maven-plugin-build-helper
+%{?scl:Requires: %scl_runtime}
+BuildArch:	noarch
 
 %description
 Core annotations used for value types,
 used by Jackson data-binding package.
 
 %package javadoc
-Summary:       Javadoc for %{name}
+Summary:	Javadoc for %{name}
 
 %description javadoc
 This package contains javadoc for %{name}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q -n %{pkg_name}-%{pkg_name}-%{version}
 
 cp -p src/main/resources/META-INF/LICENSE .
 sed -i 's/\r//' LICENSE
-
-%mvn_file : %{name}
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
+%mvn_file : %{pkg_name}
+%{?scl:EOF}
 
 %build
-
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_build
+%{?scl:EOF}
 
 %install
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_install
+%{?scl:EOF}
 
 %files -f .mfiles
 %doc README.md release-notes/*
@@ -46,6 +54,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Tue Mar 07 2017 Tomas Repik <trepik@redhat.com> - 2.7.6-4
+- scl conversion
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
